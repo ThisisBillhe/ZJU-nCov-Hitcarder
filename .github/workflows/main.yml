@@ -1,0 +1,35 @@
+name: 'ZJU-nCov-Hitcarder Action'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 22 * * *'
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - username: ZJU_USERNAME
+            password: ZJU_PASSWORD
+            dingtalk_token: DINGTALK_TOKEN
+            pushplus_token: PUSHPLUS_TOKEN
+            serverchan_key: SERVERCHAN_KEY
+          - username: ZJU_USERNAME2
+            password: ZJU_PASSWORD2
+
+    steps:
+        - name: Working
+          env:
+            USERNAME: ${{ secrets[matrix.username] }}
+            PASSWORD: ${{ secrets[matrix.password] }}
+            DINGTALK_TOKEN: ${{ secrets[matrix.dingtalk_token] }}
+            SERVERCHAN_KEY: ${{ secrets[matrix.serverchan_key] }}
+            PUSHPLUS_TOKEN: ${{ secrets[matrix.pushplus_token] }}
+          run: |
+            cd ${{ github.action_path }}
+            pip install -r ./requirements.txt
+            python3 ./hitcarder.py
+          shell: bash
