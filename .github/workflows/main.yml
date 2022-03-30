@@ -30,6 +30,7 @@ jobs:
             PUSHPLUS_TOKEN: ${{ secrets[matrix.pushplus_token] }}
           run: |
             cd ${{ github.action_path }}
+            echo $PWD
             cd ../../..
             echo $PWD
             pip install -r ./requirements.txt
