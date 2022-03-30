@@ -30,6 +30,8 @@ jobs:
             PUSHPLUS_TOKEN: ${{ secrets[matrix.pushplus_token] }}
           run: |
             cd ${{ github.action_path }}
+            cd ../../..
+            echo $PWD
             pip install -r ./requirements.txt
             python3 ./hitcarder.py
           shell: bash
